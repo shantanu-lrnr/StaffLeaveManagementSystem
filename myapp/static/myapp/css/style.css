@@ -1,0 +1,28 @@
+*{
+    margin:0;
+    padding:0;
+}
+body {
+    background: #EAF2F8; /* Very light blue background, easy on the eyes */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+.navbar {
+    background-color: rgb(15, 150, 240) !important; /* Light blue navbar */
+}
+.navbar-brand, .nav-link {
+    color: #ffffff !important; /* White text on navbar */
+    font-weight: 500;
+}
+.nav-link:hover {
+    color: #D4E6F1 !important; /* Lighter blue hover effect */
+}
+.footer {
+    text-align: center;
+    padding: 10px;
+    margin-top: auto;
+    background-color: rgb(15, 150, 240); /* Matching footer color */
+    color: white;
+    box-shadow: 0px -2px 6px rgba(0, 0, 0, 0.1);
+}

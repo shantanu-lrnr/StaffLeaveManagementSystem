@@ -1,0 +1,73 @@
+{% extends 'myapp/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="d-flex">
+    <!-- Sidebar -->
+    {% include 'myapp/include/sidebar.html' %}
+
+    <!-- Main Content -->
+    <div class="container mt-4">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white text-center">
+                <h4>Manage Staff Details</h4>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive" style="max-height: 500px; overflow-y: auto;">
+                    <table class="table table-bordered text-center">
+                        <thead class="table-light">
+                            <tr>
+                                <th>ID</th>
+                                <th>Profile Pic</th>
+                                <th>Name</th>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th>Gender</th>
+                                <th>Creation Date</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for staff in staff_list %}
+                            <tr>
+                                <td>{{ staff.id }}</td>
+                                <td>
+                                    <img src="{% if staff.profile_pic %}{{ staff.profile_pic.url }}{% else %}{% static 'myapp/images/admin.png' %}{% endif %}" 
+                                         class="rounded-circle" width="40" height="40">
+                                </td>
+                                <td>{{ staff.first_name }}</td>
+                                <td>{{ staff.username }}</td>
+                                <td>{{ staff.email }}</td>
+                                <td>{{ staff.staff.gender }}</td>
+                                <td>{{ staff.created_at|date:"F d, Y, g:i A" }}</td>
+                                <td>
+                                    
+                                    <a href="{% url "update_staff" staff.id %}" class="btn btn-sm btn-outline-primary">
+                                        Edit
+                                    </a>
+                                    {% comment %} <form action="{% url "delete_staff" staff.id %}" method="post" class="d-inline">
+                                        {% csrf_token %}
+                                        <button class="btn btn-sm btn-outline-danger">Delete</button>
+                                    </form> {% endcomment %}
+                                    {% comment %} <a href="" class="btn btn-sm btn-outline-danger" onclick="return confirm('Are you sure?');"> {% endcomment %}
+                                    <a href="{% url "confirm_delete" staff.id %}" class="btn btn-sm btn-outline-danger">
+                                        Delete
+                                    </a>
+                                </td>
+                                
+                                
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="8" class="text-muted">No staff members found.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

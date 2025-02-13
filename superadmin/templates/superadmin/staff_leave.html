@@ -1,0 +1,67 @@
+{% extends 'myapp/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="d-flex">
+    <!-- Sidebar -->
+    {% include 'myapp/include/sidebar.html' %}
+
+    <!-- Main Content -->
+    <div class="container mt-4">
+        <h2 class="text-primary text-center">View Staff Leave</h2>
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Staff Name</th>
+                    <th>Leave Type</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Message</th>
+                    <th>Apply Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for leave in all_leaves %}
+                <tr>
+                    <td>{{ leave.id }}</td>
+                    <td>{{ leave.staff }}</td>
+                    <td>{{ leave.leave_type }}</td>
+                    <td>{{ leave.from_date }}</td>
+                    <td>{{ leave.to_date }}</td>
+                    <td>{{ leave.message }}</td>
+                    <td>{{ leave.created_at }}</td>
+                    {% if leave.status == "Approved" %}
+                        <td class="text-center">
+                            <span class="badge bg-secondary fs-6">Approved</span>
+                        </td>                      
+                    {% elif leave.status == "Rejected" %}
+                        <td class="text-center">
+                            <span class="badge bg-secondary fs-6">Rejected</span>
+                        </td>
+                    {% else %}
+                    <td>
+                        <form method="POST" action="{% url 'approve_leave' leave.id %}" class="d-inline">
+                            {% csrf_token %}
+                            {% comment %} <button type="submit" class="btn btn-success btn-sm">Approve</button> {% endcomment %}
+                            <button class="btn btn-sm btn-outline-success">Approve</button>
+                        </form>
+                        <form method="POST" action="{% url 'reject_leave' leave.id %}" class="d-inline">
+                            {% csrf_token %}
+                            {% comment %} <button type="submit" class="btn btn-danger btn-sm mt-1">Reject</button> {% endcomment %}
+                            <button class="btn btn-sm btn-outline-danger">Reject</button>
+                        </form>
+                    </td>
+                    {% endif %}
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="8" class="text-center">No Leave Requests Found</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

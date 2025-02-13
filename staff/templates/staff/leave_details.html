@@ -1,0 +1,55 @@
+{% extends 'myapp/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="d-flex">
+    <!-- Sidebar -->
+    {% include 'myapp/include/sidebar.html' %}
+    
+    <!-- Main Content -->
+    <div class="container mt-5">
+        <div class="card shadow-sm">
+            <div class="card-header text-center bg-white">
+                <h4 class="text-primary">Your Leave Application Details</h4>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered text-center">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Leave Type</th>
+                            <th>Leave Start Date</th>
+                            <th>Leave End Date</th>
+                            <th>Message</th>
+                            <th>Apply Date</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for leave in all_leaves %}
+                        <tr>
+                            <td>{{ leave.leave_type }}</td>
+                            <td>{{ leave.from_date }}</td>
+                            <td>{{ leave.to_date }}</td>
+                            <td>{{ leave.message }}</td>
+                            <td>{{ leave.created_at }}</td>
+                            <td>
+                                {% if leave.status == "Pending" %}
+                                <span class="badge fs-5" style="background-color: #FFA500; color: white;">{{ leave.status }}</span>
+                                
+                                {% else %}
+                                <span class="badge bg-secondary fs-6">{{ leave.status }}</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="8" class="text-muted">No Leaves Applied</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

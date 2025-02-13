@@ -1,0 +1,15 @@
+{% extends 'myapp/base.html' %}
+
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center" style="height: 80vh;">
+    <div class="text-center">
+        <h2 class="mb-4 text-primary">Staff Leave Management System</h2>
+        <div class="d-flex justify-content-center">
+            <div class="p-4 bg-white shadow rounded">
+                <a href="{% url "login" %}" class="btn btn-primary me-3 px-4">STAFF</a>
+                <a href="{% url "login" %}" class="btn btn-primary px-4">ADMIN</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'myapp/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="d-flex">
+    <!-- Sidebar -->
+    {% include 'myapp/include/sidebar.html' %} 
+    
+    <!-- Main Content -->
+    <div class="container p-4 text-center mt-4">
+        <h2>Confirm Delete</h2>
+        <p>Are you sure you want to delete Staff Member?</p>
+        
+        <form action="{% url "delete_staff" pk %}" method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Yes, Delete</button>
+            <a href="{% url 'manage_staff' %}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

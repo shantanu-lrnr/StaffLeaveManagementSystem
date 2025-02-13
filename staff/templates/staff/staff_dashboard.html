@@ -1,0 +1,32 @@
+{% extends 'myapp/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="d-flex">
+    <!-- Sidebar -->
+    {% include 'myapp/include/sidebar.html' %}
+    
+    <!-- Main Content -->
+    <div class="flex-grow-1 p-4" style="background: #F8F9FA;">
+        <h3 class="text-primary">Welcome @{{request.user.username}}</h3>
+        <div class="d-flex gap-3">
+            <div class="p-4 bg-white shadow-sm rounded text-center" style="width: 200px;">
+                <h6 class="text-muted">TOTAL LEAVE APPLIED</h6>
+                <h2 class="text-primary">{{all_leaves.count}}</h2>
+            </div>
+            <div class="p-4 bg-white shadow-sm rounded text-center" style="width: 200px;">
+                <h6 class="text-muted">TOTAL LEAVE APPROVED</h6>
+                <h2 class="text-primary">{{approved_leaves.count}}</h2>
+            </div>
+            <div class="p-4 bg-white shadow-sm rounded text-center" style="width: 200px;">
+                <h6 class="text-muted">TOTAL LEAVE REJECTED</h6>
+                <h2 class="text-primary">{{rejected_leaves.count}}</h2>
+            </div>
+            <div class="p-4 bg-white shadow-sm rounded text-center" style="width: 200px;">
+                <h6 class="text-muted">TOTAL LEAVE PENDING</h6>
+                <h2 class="text-primary">{{pending_leaves.count}}</h2>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

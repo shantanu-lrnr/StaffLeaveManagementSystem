@@ -1,0 +1,90 @@
+{% extends 'myapp/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="d-flex">
+    <!-- Sidebar -->
+    {% include 'myapp/include/sidebar.html' %}
+
+    <!-- Main Content -->
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-white text-center">
+                        <h4 class="text-primary">Apply For Leave</h4>
+                    </div>
+                    <div class="card-body">
+                        <form action="" method="POST" novalidate>
+                            {% csrf_token %}
+
+                            <!-- Leave Type -->
+                            <div class="mb-3">
+                                <label for="leave_type" class="form-label fw-bold">Leave Type</label>
+                                <select name="leave_type" id="leave_type" class="form-select" required>
+                                    <option value="">Select Leave Type</option>
+                                    <option value="Casual Leave">Casual Leave</option>
+                                    <option value="Sick Leave">Sick Leave</option>
+                                    <option value="Public holidays">Public holidays</option>
+                                    <option value="Maternity leave">Maternity leave</option>
+                                </select>
+                                {% if form.leave_type.errors %}
+                                    <div class="text-danger small">
+                                        {% for error in form.leave_type.errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <!-- From Date -->
+                            <div class="mb-3">
+                                <label for="from_date" class="form-label fw-bold">From Date</label>
+                                <input type="date" name="from_date" id="from_date" class="form-control" required>
+                                {% if form.from_date.errors %}
+                                <div class="text-danger small">
+                                    {% for error in form.from_date.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+                            </div>
+
+                            <!-- To Date -->
+                            <div class="mb-3">
+                                <label for="to_date" class="form-label fw-bold">To Date</label>
+                                <input type="date" name="to_date" id="to_date" class="form-control" required>
+                                {% if form.to_date.errors %}
+                                    <div class="text-danger small">
+                                        {% for error in form.to_date.errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <!-- Message -->
+                            <div class="mb-4">
+                                <label for="message" class="form-label fw-bold">Message</label>
+                                <textarea name="message" id="message" class="form-control" rows="3" required></textarea>
+                                {% if form.message.errors %}
+                                    <div class="text-danger small">
+                                        {% for error in form.message.errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary px-4">Apply Leave</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
